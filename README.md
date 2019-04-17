@@ -22,6 +22,14 @@
 
 ## 技术需求
 
+### 编程环境
+   
+- Java语言
+
+- IntelliJ IDEA
+
+- 使用IntelliJ IDEA中的Git进行版本控制
+
 ### 区块链
 
 - Hyperledger Fabric
