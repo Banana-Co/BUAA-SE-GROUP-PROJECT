@@ -30,6 +30,22 @@
 
 - 使用IntelliJ IDEA中的Git进行版本控制
 
+### 框架
+
+- Spring Boot
+
+### 前端
+
+- vue.js
+
+### 数据库
+
+- sql server
+
+### 持久层
+
+- MyBatis
+
 ### 区块链
 
 - Hyperledger Fabric
