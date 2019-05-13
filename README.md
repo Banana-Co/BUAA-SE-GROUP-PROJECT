@@ -33,18 +33,21 @@
 ### 框架
 
 - Spring Boot
+-（https://spring.io/projects/spring-boot/#overview）
 
 ### 前端
 
 - vue.js
+-（https://cn.vuejs.org/v2/guide/）
 
 ### 数据库
 
-- sql server
+-  server
 
 ### 持久层
 
 - MyBatis
+-（http://www.mybatis.org/mybatis-3/zh/index.html
 
 ### 区块链
 
