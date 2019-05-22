@@ -23,7 +23,7 @@
 ## 技术需求
 
 ### 编程环境
-   
+
 - Java语言
 
 - IntelliJ IDEA
@@ -60,10 +60,16 @@
 
 - Hyperledger Fabric
 
+  * 资源
+
+    [官方网站](<https://cn.hyperledger.org/projects/fabric>)
+
+    [代码（github）](https://github.com/hyperledger/fabric#releases)
+
   - 学习资料
-
+  
     [中文 《区块链技术指南》](https://yeasy.gitbooks.io/blockchain_guide/content/hyperledger/)
-
+  
     [英文 《官方教程》](https://hyperledger-fabric.readthedocs.io/en/latest/tutorials.html)
-
+  
     [中文翻译 《官方教程》](https://hyperledgercn.github.io/hyperledgerDocs/build_network_zh/)
