@@ -38,7 +38,9 @@
   
   [教程](https://spring.io/guides/gs/rest-service/)
   
-  [文档](https://docs.spring.io/spring-boot/docs/2.1.4.RELEASE/reference/htmlsingle/)
+  [英文文档](https://docs.spring.io/spring-boot/docs/2.1.4.RELEASE/reference/htmlsingle/)
+  
+  [中文文档](https://springcloud.cc/spring-boot.html)
 
 ### 前端
 
@@ -60,7 +62,7 @@
 
 - Hyperledger Fabric
 
-  * 资源
+  - 资源
 
     [官方网站](<https://cn.hyperledger.org/projects/fabric>)
 
