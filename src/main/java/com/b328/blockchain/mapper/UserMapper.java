@@ -14,9 +14,9 @@ public interface UserMapper {
     })
     List<User> getAllUsers();
 
-    @Insert("INSERT INTO User(user_id, user_name, user_sex) VALUES(#{id}, #{name}, #{sex})")
+    @Insert("INSERT INTO User(id, name, sex) VALUES(#{id}, #{name}, #{sex}")
     int addUser(User user);
 
-    @Delete("DELETE FROM User WHERE user_id = #{id}")
+    @Delete("DELETE FROM User WHERE id = #{id}")
     int deleteUser(User user);
 }
