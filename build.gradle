@@ -19,4 +19,6 @@ dependencies {
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1'
     runtimeOnly 'mysql:mysql-connector-java'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    //implementation 'org.apache.shiro:shiro-spring-boot-web-starter:1.5.0-SNAPSHOT'
+    
 }

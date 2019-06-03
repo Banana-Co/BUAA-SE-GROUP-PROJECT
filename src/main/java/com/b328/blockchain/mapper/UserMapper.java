@@ -8,15 +8,22 @@ import java.util.List;
 public interface UserMapper {
     @Select("SELECT * FROM User")
     @Results({
-            @Result(property = "id", column = "user_id"),
-            @Result(property = "name", column = "user_name"),
-            @Result(property = "sex", column = "user_sex")
+            @Result(property = "user_id", column = "user_id"),
+            @Result(property = "user_name", column = "user_name"),
+            @Result(property = "user_sex", column = "user_sex"),
+            @Result(property = "user_password", column = "user_password")
     })
     List<User> getAllUsers();
 
-    @Insert("INSERT INTO User(id, name, sex) VALUES(#{id}, #{name}, #{sex}")
+    @Insert("INSERT INTO User(id, username, sex,password) VALUES(#{id}, #{username}, #{sex}, #{password})")
     int addUser(User user);
 
     @Delete("DELETE FROM User WHERE id = #{id}")
     int deleteUser(User user);
+
+    @Select("SELECT * FROM User WHERE password = #{password}")
+    List<User> login(User user);
+
+    @Select("SELECT * FROM User WHERE user_name = #{user_name}")
+    User getUser(String user_name);
 }
