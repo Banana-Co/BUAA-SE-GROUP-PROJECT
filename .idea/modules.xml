@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/BUAA-SE-GROUP-PROJECT.iml" filepath="$PROJECT_DIR$/.idea/BUAA-SE-GROUP-PROJECT.iml" />
-      <module fileurl="file://$PROJECT_DIR$/blockchain/blockchain.iml" filepath="$PROJECT_DIR$/blockchain/blockchain.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.b328.blockchain.iml" filepath="$PROJECT_DIR$/.idea/modules/com.b328.blockchain.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.b328.blockchain.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.b328.blockchain.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.b328.blockchain.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.b328.blockchain.test.iml" />

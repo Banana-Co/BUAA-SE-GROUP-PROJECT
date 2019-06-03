@@ -30,3 +30,7 @@ HELP.md
 .vscode/
 .idea/misc.xml
 .idea/modules.xml
+.idea/misc.xml
+.idea/modules.xml
+src/main/java/com/b328/blockchain/mapper/UserMapper.java
+src/main/resources/application.properties
