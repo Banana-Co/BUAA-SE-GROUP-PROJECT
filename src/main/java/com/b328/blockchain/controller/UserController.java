@@ -4,16 +4,14 @@ import com.b328.blockchain.entity.User;
 import com.b328.blockchain.mapper.RoleMapper;
 import com.b328.blockchain.serviceimpl.UserService;
 import com.b328.blockchain.util.UserRegisteAndLogin;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Controller
 public class UserController {
@@ -23,34 +21,23 @@ public class UserController {
 
     @Autowired
     private RoleMapper roleMapper;
-
-    //跳转到登录表单页面
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
-        return "need login";
-    }
-
-    //登录成功后，跳转的页面
-    @RequestMapping("/success")
-    public String index(Model model) {
-        return "success";
-    }
-
-    //未登录，可以访问的页面
-    @RequestMapping("/index")
-    public String list(Model model) {
-        return "index";
-    }
-
-
     /**
      * 处理用户的登录请求
      */
-    @PostMapping("/userLogin")
-    public String userLogin(User user, Model model) {
+    @RequestMapping(value = "/login")
+    public String login(User user, Model model) {
         user.setPswd(UserRegisteAndLogin.getInputPasswordCiph(user.getPswd(), service.selectAsaltByName(user.getNickname())));
 
         return UserRegisteAndLogin.userLogin(user, model);
+    }
+
+    @RequestMapping(value="/testRegister",method= RequestMethod.POST)
+    @ResponseBody
+    public String submitRegister(@RequestParam(value = "nickname") String username, @RequestParam(value = "pswd") String password,Model model){
+        User user  = new User();
+        user.setPswd(password);
+        user.setNickname(username);
+        return userRegister(user,model);
     }
 
     /**
@@ -59,8 +46,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/userRegister")
-    public String userRegister(User user, Model model)
-    {
+    public String userRegister(User user, Model model) {
         String userName = user.getNickname();
         String password = user.getPswd();
 
@@ -73,6 +59,17 @@ public class UserController {
 
         return UserRegisteAndLogin.userLogin(user, model); //使用户沆注册后立马登录
     }
+    @RequestMapping(value="/ajaxLogin",method= RequestMethod.POST)
+    @ResponseBody
+    public String submitLogin(@RequestParam(value = "nickname") String username, @RequestParam(value = "pswd") String password,Model model) {
+        User user = new User();
+        user.setNickname(username);
+        user.setPswd(password);
+        return login(user,model);
+    }
+
+
+    /*
     //登出
     @RequestMapping(value = "/logout")
     public String logout(){
@@ -100,4 +97,5 @@ public class UserController {
     public String detail(){
         return "select success";
     }
+    */
 }

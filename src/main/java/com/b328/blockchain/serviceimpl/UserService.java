@@ -54,8 +54,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public String selectAsaltByName(String name)
-    {
+    public String selectAsaltByName(String name) {
         return userMapper.selectAsaltByName(name);
     }
 

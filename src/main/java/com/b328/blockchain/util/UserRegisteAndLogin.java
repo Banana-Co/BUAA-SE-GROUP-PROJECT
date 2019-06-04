@@ -36,13 +36,11 @@ public class UserRegisteAndLogin {
      * @return
      */
     public static String getInputPasswordCiph(String password, String salt) {
-        if(salt == null)
-        {
+        if(salt == null){
             password = "";
         }
 
         String ciphertext = new Md5Hash(password,salt,3).toString(); //生成的密文
-
         return ciphertext;
     }
 
@@ -65,7 +63,7 @@ public class UserRegisteAndLogin {
         catch (UnknownAccountException e) //抛出这个异常说明用户不存在
         {
             model.addAttribute("msg", "用户不存在");
-            return "login";
+            return "login1";
         }
         catch (IncorrectCredentialsException e) //抛出这个异常说明密码错误
         {
