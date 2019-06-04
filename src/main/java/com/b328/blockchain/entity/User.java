@@ -1,40 +1,66 @@
 package com.b328.blockchain.entity;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
-    private Integer user_id;
-    private String user_name;
-    private String user_sex;
-    private String user_password;
+    private long id;
+    private String nickname;
+    private String pswd;
+    private String salt;
+    List<String> roleStrlist=new ArrayList<String>();////用户的角色集合
+    List<String> perminsStrlist=new ArrayList<String>();//用户的权限集合
 
-    public Integer getUser_id() {
-        return user_id;
+    public long getId() {
+        return id;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public List<String> getRoleStrlist() {
+        return roleStrlist;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public void setRoleStrlist(List<String> roleStrlist) {
+        this.roleStrlist = roleStrlist;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public List<String> getPerminsStrlist() {
+        return perminsStrlist;
     }
 
-    public String getUser_sex() {
-        return user_sex;
+    public void setPerminsStrlist(List<String> perminsStrlist) {
+        this.perminsStrlist = perminsStrlist;
     }
 
-    public void setUser_sex(String user_sex) {
-        this.user_sex = user_sex;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getUser_password() {
-        return user_password;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setUser_password(String user_password) {
-        this.user_password = user_password;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getPswd() {
+        return pswd;
+    }
+
+    public void setPswd(String pswd) {
+        this.pswd = pswd;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", name='" + nickname + '\'' + ", password='" + pswd  + '\'' + '}';
     }
 }

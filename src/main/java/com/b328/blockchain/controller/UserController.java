@@ -1,61 +1,48 @@
 package com.b328.blockchain.controller;
 
 import com.b328.blockchain.entity.User;
-import com.b328.blockchain.pojo.vo.VueLoginInfoVo;
-import com.b328.blockchain.result.Result;
-import com.b328.blockchain.result.ResultFactory;
-import com.b328.blockchain.service.IUserService;
+import com.b328.blockchain.serviceimpl.UserService;
+import com.b328.blockchain.util.UserRegisteAndLogin;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.validation.Valid;
-import java.util.List;
-
-@RestController
-//@RequestMapping("/user")
+@Controller
 public class UserController {
     @Autowired
-    private IUserService userService;
-    @CrossOrigin
-    @RequestMapping(value = "/api/login", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
-    @PostMapping("/api/login")
+    @Qualifier("userService")
+    private UserService service;
 
-    public Result login(@Valid @RequestBody VueLoginInfoVo loginInfoVo, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            String message = String.format("登陆失败，详细信息[%s]。", bindingResult.getFieldError().getDefaultMessage());
-            return ResultFactory.buildFailResult(message);
-        }
-        User user=userService.getUser(loginInfoVo.getUsername());
-        if (user==null||!user.getUser_password().equals(loginInfoVo.getPassword())){
-            String message = String.format("登陆失败，详细信息[用户名、密码信息不正确]。");
-            return ResultFactory.buildFailResult(message);
-        }
-        return ResultFactory.buildSuccessResult("登陆成功。");
+    /**
+     * 处理用户的登录请求
+     */
+    @PostMapping("/userLogin")
+    public String userLogin(User user, Model model) {
+        user.setPswd(UserRegisteAndLogin.getInputPasswordCiph(user.getPswd(), service.selectAsaltByName(user.getNickname())));
+
+        return UserRegisteAndLogin.userLogin(user, model);
     }
 
-    @RequestMapping("/greeting")
-    public String hello() {
-        return "hello";
-    }
+    /**
+     * 处理用户的注册请求
+     * @param user
+     * @return
+     */
+    @PostMapping("/userRegister")
+    public String userRegister(User user, Model model)
+    {
+        String userName = user.getNickname();
+        String password = user.getPswd();
 
-    @RequestMapping("/bye")
-    public String bye() {
-        return "bye";
-    }
+        String[] saltAndCiphertext = UserRegisteAndLogin.encryptPassword(password);
 
-    @RequestMapping(value = "/getAllUsers", method = RequestMethod.GET)
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
-    }
+        user.setSalt(saltAndCiphertext[0]);
+        user.setPswd(saltAndCiphertext[1]);
 
-    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-    public int addUser(@RequestBody User user) {
-        return userService.addUser(user);
-    }
+        service.userRegister(user);
 
-    @RequestMapping(value = "/deleteUser", method = RequestMethod.POST)
-    public int deleteUser(@RequestBody User user) {
-        return userService.deleteUser(user);
+        return UserRegisteAndLogin.userLogin(user, model); //使用户沆注册后立马登录
     }
 }

@@ -43,7 +43,20 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User getUser(String user_name) {
-        return userMapper.getUser(user_name);
+    public User getUserByName(String user_name) {
+        return userMapper.selectAllByName(user_name);
     }
+
+    @Override
+    public void userRegister(User user)
+    {
+        userMapper.userRegister(user);
+    }
+
+    @Override
+    public String selectAsaltByName(String name)
+    {
+        return userMapper.selectAsaltByName(name);
+    }
+
 }

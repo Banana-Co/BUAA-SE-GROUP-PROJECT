@@ -14,5 +14,9 @@ public interface IUserService {
 
     Result login(User user);
 
-    User getUser(String user_name);
+    User getUserByName(String user_name);
+
+    public void userRegister(User user);
+
+    String selectAsaltByName(String name);
 }
