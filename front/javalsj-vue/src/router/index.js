@@ -5,6 +5,7 @@ import BlogLogin from '@/components/manage/BlogLogin.vue'
 import BlogIndex from '@/components/home/BlogIndex.vue'
 import Login from '@/components/manage/Login.vue'
 import Index from '@/components/home/Index.vue'
+// import Main from '@/components/main/Main.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -36,11 +37,11 @@ export default new Router({
 		  path: '/home',
 		  name: 'Home',
 		  component: Index
-		 },
-  //   {
-  //     path: '/main',
-  //     name: 'Main',
-  //     component: Main
-  //   }
+		  },
+   //  {
+   //    path: '/main',
+   //    name: 'Main',
+   //    component: Main
+   //  }
   ]
 })
