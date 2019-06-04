@@ -3,7 +3,7 @@ package com.b328.blockchain.entity;
 import java.util.Date;
 
 public class Contract {
-    private Long id;
+    private int id;
     private String partyA;
     private String partyB;
     private Date createDate;
@@ -11,11 +11,11 @@ public class Contract {
     private Boolean isPartyBSigned;
     private String content;
 
-    public Long getId() {
+    public int  getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
