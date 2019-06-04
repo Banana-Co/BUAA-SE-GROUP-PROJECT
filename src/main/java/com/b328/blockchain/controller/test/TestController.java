@@ -24,7 +24,7 @@ public class TestController {
      * 查询所有用户的所有信息
      * @return
      */
-    @GetMapping("/selectAllUser")
+    @GetMapping("/getAllUser")
     public List<User> selectAllUser()
     {
         return userService.getAllUsers();

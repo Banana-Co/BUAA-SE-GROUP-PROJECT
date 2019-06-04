@@ -66,17 +66,18 @@ public class ShiroConfig {
         // 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionManager.put("/logout", "logout");
         // authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问
+        //test url
+        filterChainDefinitionManager.put("/ajaxLogin", "anon");
+        filterChainDefinitionManager.put("/testRegister", "anon");
+        //test url
         filterChainDefinitionManager.put("/user/**", "authc,roles[user]");
         filterChainDefinitionManager.put("/admin/**", "authc,roles[admin]");
         filterChainDefinitionManager.put("/login", "anon");
         filterChainDefinitionManager.put("/index", "anon");
-        filterChainDefinitionManager.put("/ajaxLogin", "anon");
         filterChainDefinitionManager.put("/statistic/**",  "anon");
         filterChainDefinitionManager.put("/**",  "authc,roles[user]");//其他资源全部拦截
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionManager);
-        //test
-        filterChainDefinitionManager.put("/testRegister", "anon");
-        filterChainDefinitionManager.put("/ajaxLogin", "anon");
+
 
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         shiroFilterFactoryBean.setLoginUrl("/login");

@@ -8,6 +8,7 @@ import com.b328.blockchain.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -48,9 +49,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void userRegister(User user)
-    {
-        userMapper.userRegister(user);
+    public void userRegister(User user) {
+        if(userMapper.selectAllByName(user.getNickname()) == null)
+            userMapper.userRegister(user);
     }
 
     @Override

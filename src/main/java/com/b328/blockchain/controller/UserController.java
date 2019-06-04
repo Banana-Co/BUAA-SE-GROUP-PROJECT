@@ -59,6 +59,7 @@ public class UserController {
 
         return UserRegisteAndLogin.userLogin(user, model); //使用户沆注册后立马登录
     }
+    
     @RequestMapping(value="/ajaxLogin",method= RequestMethod.POST)
     @ResponseBody
     public String submitLogin(@RequestParam(value = "nickname") String username, @RequestParam(value = "pswd") String password,Model model) {
