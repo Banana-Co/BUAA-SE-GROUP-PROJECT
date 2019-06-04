@@ -69,6 +69,7 @@ public class ShiroConfig {
         //test url
         filterChainDefinitionManager.put("/ajaxLogin", "anon");
         filterChainDefinitionManager.put("/testRegister", "anon");
+        filterChainDefinitionManager.put("/getAllUser", "anon");
         //test url
         filterChainDefinitionManager.put("/user/**", "authc,roles[user]");
         filterChainDefinitionManager.put("/admin/**", "authc,roles[admin]");

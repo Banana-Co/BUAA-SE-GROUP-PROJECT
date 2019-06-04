@@ -24,34 +24,16 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public int addUser(User user) {
-        return userMapper.addUser(user);
-    }
-
-    @Override
-    public int deleteUser(User user) {
-        return userMapper.deleteUser(user);
-    }
-
-    @Override
-    public Result login(User user) {
-        List<User> list=userMapper.login(user);
-        if(!list.isEmpty()){
-            return ResultFactory.buildSuccessResult(list.get(0));
-        }else {
-            return ResultFactory.buildFailResult("登录失败！");
-        }
-    }
-
-    @Override
     public User getUserByName(String user_name) {
         return userMapper.selectAllByName(user_name);
     }
 
     @Override
     public void userRegister(User user) {
-        if(userMapper.selectAllByName(user.getNickname()) == null)
+        if(userMapper.selectAllByName(user.getNickname()) == null) {
             userMapper.userRegister(user);
+            
+        }
     }
 
     @Override

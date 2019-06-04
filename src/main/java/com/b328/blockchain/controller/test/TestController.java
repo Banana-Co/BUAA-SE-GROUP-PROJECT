@@ -48,8 +48,7 @@ public class TestController {
      */
     @PostMapping("/testUserRe")
     @ResponseBody
-    public String userRegister(User user)
-    {
+    public String userRegister(User user) {
         System.out.println(user.toString());
 
         if(user.getSalt() == null) {
