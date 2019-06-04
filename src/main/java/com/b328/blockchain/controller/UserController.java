@@ -10,9 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 @Controller
 public class UserController {
     @Autowired
@@ -42,8 +39,6 @@ public class UserController {
 
     /**
      * 处理用户的注册请求
-     * @param user
-     * @return
      */
     @PostMapping("/userRegister")
     public String userRegister(User user, Model model) {
