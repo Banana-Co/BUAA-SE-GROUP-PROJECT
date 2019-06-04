@@ -44,4 +44,9 @@ public class ContractController {
     public int Bsigned(@RequestBody Contract contract){
         return contractService.Bsigned(contract.getId());
     }
+
+    @RequestMapping(value = "/ReviseContract",method = RequestMethod.POST)
+    public int ReviseContract(@RequestBody Contract contract){
+        return contractService.ReviseContract(contract.getId(),contract.getContent());
+    }
 }

@@ -32,6 +32,13 @@ public  class ContractServiceImpl implements ContractService {
     }
 
     @Override
+    public int ReviseContract(int id, String content) {
+        Contract contract=contractMapper.getContractByID(id);
+        contract.setContent(content);
+        return contractMapper.ReviseContract(contract);
+    }
+
+    @Override
     public int Asigned(int id) {
         Contract contract=contractMapper.getContractByID(id);
         contract.setPartyASigned(true);

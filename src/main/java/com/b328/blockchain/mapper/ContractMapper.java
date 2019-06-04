@@ -75,4 +75,7 @@ public interface ContractMapper {
 
     @Update("update Contract set isPartyBSigned=true where id=#{id}")
     int Bsigned(Contract contract);
+
+    @Update("update Contract set content=#{content} where id=#{id}")
+    int ReviseContract(Contract contract);
 }
