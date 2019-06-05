@@ -1,25 +1,34 @@
 <template>
-  <div>
-    <blog-header></blog-header>
-    <hr/>
     <div>
-      这是首页，嘻嘻嘻。
+        <h3>欢迎 {{name}}</h3>
+        <a href="#" @click="quit">注销登录</a>
     </div>
-    <hr/>
-    <blog-footer></blog-footer>
-  </div>
 </template>
 
 <script>
-import blogHeader from '@/components/common/BlogHeader.vue'
-import blogFooter from '@/components/common/BlogFooter.vue'
-
-export default {
-  name: 'BlogIndex',
-  // blogHeader/blogFooter组件给申明到components里面然后在template里面使用
-  components: { blogHeader, blogFooter }
-}
+/*引入公共方法*/
+import { setCookie,getCookie,delCookie } from '../../assets/js/cookie.js'
+    export default{
+        data(){
+            return{
+                name: ''
+            }
+        },
+        mounted(){
+            /*页面挂载获取保存的cookie值，渲染到页面上*/
+            let uname = getCookie('username')
+            this.name = uname
+            /*如果cookie不存在，则跳转到登录页*/
+            if(uname == ""){
+                this.$router.push('/')
+            }
+        },
+        methods:{
+            quit(){
+                /*删除cookie*/
+                delCookie('username')
+								this.$router.push('/')
+            }
+        }
+    }
 </script>
-
-<style>
-</style>

@@ -11,7 +11,9 @@ public class ResultFactory {
     public static Result buildFailResult(String message) {
         return buildResult(ResultCode.FAIL, message, null);
     }
-
+    public static Result buildFailResult(ResultCode resultCode) {
+        return buildResult(resultCode, "失败", null);
+    }
     public static Result buildResult(ResultCode resultCode, String message, Object data) {
         return buildResult(resultCode.code, message, data);
     }

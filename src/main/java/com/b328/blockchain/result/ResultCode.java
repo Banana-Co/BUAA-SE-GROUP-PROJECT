@@ -5,9 +5,12 @@ public enum ResultCode {
      * 成功
      */
     SUCCESS(200),
+    HaveExist(201),
     /**
      * 失败
      */
+    NotExist(300),
+
     FAIL(400),
 
     /**

@@ -4,7 +4,9 @@ import HelloWorld from '@/components/HelloWorld'
 import BlogLogin from '@/components/manage/BlogLogin.vue'
 import BlogIndex from '@/components/home/BlogIndex.vue'
 import Login from '@/components/manage/Login.vue'
-import Index from '@/components/home/Index.vue'
+import index from '@/components/home/Index.vue'
+import register from '@/components/manage/register.vue'
+import main from '@/components/main/Main.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -20,7 +22,7 @@ export default new Router({
 		},
     {
       path: '/index',
-      name: 'BlogIndex',
+      name: 'index',
       component: BlogIndex
     },
     {
@@ -30,17 +32,22 @@ export default new Router({
     {
       path: '/login',
       name: 'BlogLogin',
-      component: Login
+      component: BlogLogin
     },
 		{
 		  path: '/home',
-		  name: 'Home',
-		  component: Index
-		 },
-  //   {
-  //     path: '/main',
-  //     name: 'Main',
-  //     component: Main
-  //   }
+		  name: 'home',
+		  component: index
+		  },
+			{
+			  path: '/register',
+			  name: 'register',
+			  component: register
+			  },
+    {
+      path: '/main',
+      name: 'main',
+      component: main
+    }
   ]
 })
