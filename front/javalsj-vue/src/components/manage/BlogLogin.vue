@@ -12,7 +12,7 @@
 	import {
 		setCookie,
 		getCookie
-	} from '@/assets/js/cookie.js'
+	} from '../../assets/js/cookie.js'
 	export default {
 		data() {
 			return {
@@ -28,38 +28,40 @@
 		mounted() {
 			/*页面挂载获取cookie，如果存在username的cookie，则跳转到主页，不需登录*/
 			if (getCookie('username')) {
-				this.$router.push('/home')
+				this.$router.push(
+					'/index'
+				)
 			}
 		},
 		methods: {
 			ToRegister() {
-				this.$router.replace( {
-					path: '/register'
-				})
+				this.$router.push(
+					'/register'
+				)
 			},
 			login() {
-					this.$axios
-						.post('/login', {
-							username: this.loginInfoVo.username,
-							password: this.loginInfoVo.password
-						})
-						.then(successResponse => {
-							this.responseResult = JSON.stringify(successResponse.data)
-							if (successResponse.data.code === 200) {
-								this.$router.replace({
-									path: '/index'
-								})
-							}else if (successResponse.data.code === 300) {
-								this.tishi = "该用户不存在"
-								this.showTishi = true
-							}else if (successResponse.data.code === 400) {
-								this.tishi = "密码输入错误"
-								this.showTishi = true
-							}
-						})
-						.catch(failResponse => {})
-				
-				
+				this.$axios
+					.post('/login', {
+						username: this.loginInfoVo.username,
+						password: this.loginInfoVo.password
+					})
+					.then(successResponse => {
+						this.responseResult = JSON.stringify(successResponse.data)
+						if (successResponse.data.code === 200) {
+							this.$router.push(
+								'/index'
+							)
+						} else if (successResponse.data.code === 300) {
+							this.tishi = "该用户不存在"
+							this.showTishi = true
+						} else if (successResponse.data.code === 400) {
+							this.tishi = "密码输入错误"
+							this.showTishi = true
+						}
+					})
+					.catch(failResponse => {})
+
+
 			}
 		}
 	}

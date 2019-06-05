@@ -37,16 +37,22 @@
   		},
   		register() {
   			this.$axios
-  				.post('/login', {
+  				.post('/register', {
   					username: this.loginInfoVo.username,
   					password: this.loginInfoVo.password
   				})
   				.then(successResponse => {
   					this.responseResult = JSON.stringify(successResponse.data)
   					if (successResponse.data.code === 200) {
-  						this.$router.replace({
-  							path: '/index'
-  						})
+  						this.$router.push(
+  							'/index'
+  						)
+  					} else if (successResponse.data.code === 300) {
+  						this.tishi = "该用户不存在"
+  						this.showTishi = true
+  					} else if (successResponse.data.code === 400) {
+  						this.tishi = "密码输入错误"
+  						this.showTishi = true
   					}
   				})
   				.catch(failResponse => {})

@@ -1,13 +1,13 @@
 <template>
   <div>
       <h3>欢迎 {{name}}</h3>
-      <a href="#" @click="quit">注销登录</a>
+      <a href="#" v-on:click="quit">注销登录</a>
   </div>
 </template>
 
 <script>
 /*引入公共方法*/
-import { setCookie,getCookie,delCookie } from '@/assets/js/cookie.js'
+import { setCookie,getCookie,delCookie } from '../../assets/js/cookie.js'
     export default{
         data(){
             return{
@@ -27,6 +27,7 @@ import { setCookie,getCookie,delCookie } from '@/assets/js/cookie.js'
             quit(){
                 /*删除cookie*/
                 delCookie('username')
+								this.$router.push('/login')
             }
         }
     }
