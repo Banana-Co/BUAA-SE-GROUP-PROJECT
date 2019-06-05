@@ -8,6 +8,8 @@ public enum ResultCode {
     /**
      * 失败
      */
+    NotExist(300),
+
     FAIL(400),
 
     /**

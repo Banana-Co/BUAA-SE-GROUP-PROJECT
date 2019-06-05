@@ -3,12 +3,14 @@ package com.b328.blockchain.controller;
 import com.b328.blockchain.entity.User;
 import com.b328.blockchain.pojo.vo.VueLoginInfoVo;
 import com.b328.blockchain.result.Result;
+import com.b328.blockchain.result.ResultCode;
 import com.b328.blockchain.result.ResultFactory;
 import com.b328.blockchain.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.spi.DirStateFactory;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -24,9 +26,10 @@ public class UserController {
             return ResultFactory.buildFailResult(message);
         }
         User user=userService.getUser(loginInfoVo.getUsername());
-        if (user==null||!user.getUser_password().equals(loginInfoVo.getPassword())){
-            String message = String.format("登陆失败，详细信息[用户名、密码信息不正确]。");
-            return ResultFactory.buildFailResult(message);
+        if (user==null){
+            return ResultFactory.buildFailResult(ResultCode.NotExist);
+        }else if (!user.getUser_password().equals(loginInfoVo.getPassword())){
+            return ResultFactory.buildFailResult(ResultCode.FAIL);
         }
         return ResultFactory.buildSuccessResult("登陆成功。");
     }

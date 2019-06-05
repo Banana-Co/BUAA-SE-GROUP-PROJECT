@@ -5,13 +5,6 @@
 		<input type="password" v-model="loginInfoVo.password" placeholder="请输入密码" />
 		<button v-on:click="login">登录</button>
 		<span v-on:click="ToRegister">没有账号？马上注册</span>
-		<br />
-		<br />
-		<br />
-		<br />
-		登录验证情况：
-		<br />
-		<textarea cols="30" rows="10" v-model="responseResult"></textarea>
 	</div>
 </template>
 
@@ -35,20 +28,28 @@
 				})
 			},
 			login() {
-				this.$axios
-					.post('/login', {
-						username: this.loginInfoVo.username,
-						password: this.loginInfoVo.password
-					})
-					.then(successResponse => {
-						this.responseResult = JSON.stringify(successResponse.data)
-						if (successResponse.data.code === 200) {
-							this.$router.replace({
-								path: '/index'
-							})
-						}
-					})
-					.catch(failResponse => {})
+					this.$axios
+						.post('/login', {
+							username: this.loginInfoVo.username,
+							password: this.loginInfoVo.password
+						})
+						.then(successResponse => {
+							this.responseResult = JSON.stringify(successResponse.data)
+							if (successResponse.data.code === 200) {
+								this.$router.replace({
+									path: '/index'
+								})
+							}else if (successResponse.data.code === 300) {
+								this.tishi = "该用户不存在"
+								this.showTishi = true
+							}else if (successResponse.data.code === 400) {
+								this.tishi = "密码输入错误"
+								this.showTishi = true
+							}
+						})
+						.catch(failResponse => {})
+				
+				
 			}
 		}
 	}
