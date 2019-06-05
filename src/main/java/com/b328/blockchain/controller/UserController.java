@@ -13,14 +13,11 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-//@RequestMapping("/user")
 public class UserController {
     @Autowired
     private IUserService userService;
     @CrossOrigin
-    @RequestMapping(value = "/api/login", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
-    @PostMapping("/api/login")
-
+    @RequestMapping(value = "login", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
     public Result login(@Valid @RequestBody VueLoginInfoVo loginInfoVo, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             String message = String.format("登陆失败，详细信息[%s]。", bindingResult.getFieldError().getDefaultMessage());
