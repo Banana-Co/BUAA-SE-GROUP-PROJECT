@@ -18,12 +18,6 @@ public interface UserMapper {
     @Insert("INSERT INTO User(user_name,user_password) VALUES(#{user_name}, #{user_password})")
     int addUser(User user);
 
-    @Delete("DELETE FROM User WHERE id = #{id}")
-    int deleteUser(User user);
-
-    @Select("SELECT * FROM User WHERE password = #{password}")
-    List<User> login(User user);
-
     @Select("SELECT * FROM User WHERE user_name = #{user_name}")
     User getUser(String user_name);
 }
