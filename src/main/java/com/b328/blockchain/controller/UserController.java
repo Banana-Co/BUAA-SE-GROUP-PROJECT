@@ -44,7 +44,7 @@ public class UserController {
         return "bye";
     }
 
-    @RequestMapping(value = "/getAllUsers", method = RequestMethod.GET)
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }

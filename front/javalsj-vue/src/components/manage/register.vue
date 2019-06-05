@@ -5,6 +5,8 @@
       <input type="password" v-model="loginInfoVo.password" placeholder="请输入密码" />
       <button v-on:click="register">注册</button>
 			<span v-on:click="ToLogin">已有账号？马上登录</span>
+			 <br/>
+			<span v-on:click="ToMain">查看用户</span>
       <br/>
 			<br/>
 			<br/>
@@ -30,6 +32,11 @@
   		}
   	},
   	methods: {
+		ToMain() {
+			this.$router.push(
+				'/main'
+			)
+		},
   		ToLogin() {
   			this.$router.replace( {
   				path: '/login'

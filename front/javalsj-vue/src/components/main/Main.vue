@@ -3,7 +3,7 @@
         <h3>所有注册用户</h3>
         <ul>
             <li v-for="item in list">
-                {{item.username}}
+                {{item.user_name}}
             </li>
         </ul>
     </div>
@@ -22,7 +22,7 @@
             }
         },
         mounted(){
-            this.$axios.get('/login').then((res)=>{
+            this.$axios.get('/user').then((res)=>{
                 this.list = res.data
                 console.log(res)
             })
