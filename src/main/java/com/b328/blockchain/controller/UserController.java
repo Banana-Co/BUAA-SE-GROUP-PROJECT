@@ -33,7 +33,40 @@ public class UserController {
         }
         return ResultFactory.buildSuccessResult("登陆成功。");
     }
-
+    @CrossOrigin
+    @RequestMapping(value = "register", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    public Result register(@Valid @RequestBody VueLoginInfoVo loginInfoVo, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            String message = String.format("注册失败，详细信息[%s]。", bindingResult.getFieldError().getDefaultMessage());
+            return ResultFactory.buildFailResult(message);
+        }
+        User user=userService.getUser(loginInfoVo.getUsername());
+        if (user!=null){
+            return ResultFactory.buildFailResult(ResultCode.HaveExist);
+        }else if (loginInfoVo.getUsername().equals("")||loginInfoVo.getPassword().equals("")){
+            return ResultFactory.buildFailResult(ResultCode.FAIL);
+        }
+        User user1=new User();
+        user1.setUser_name(loginInfoVo.getUsername());
+        user1.setUser_password(loginInfoVo.getPassword());
+        userService.addUser(user1);
+        return ResultFactory.buildSuccessResult("注册成功。");
+    }
+    @CrossOrigin
+    @RequestMapping(value = "testregister", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    public Result testregister(@RequestParam(value="username") String username, @RequestParam(value="password") String password) {
+        User user=userService.getUser(username);
+        if (user!=null){
+            return ResultFactory.buildFailResult(ResultCode.HaveExist);
+        }else if (username.equals("")||password.equals("")){
+            return ResultFactory.buildFailResult(ResultCode.FAIL);
+        }
+        User user1=new User();
+        user1.setUser_name(username);
+        user1.setUser_password(password);
+        userService.addUser(user1);
+        return ResultFactory.buildSuccessResult("注册成功。");
+    }
     @RequestMapping("/greeting")
     public String hello() {
         return "hello";

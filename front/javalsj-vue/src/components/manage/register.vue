@@ -7,30 +7,34 @@
 			<span v-on:click="ToLogin">已有账号？马上登录</span>
 			 <br/>
 			<span v-on:click="ToMain">查看用户</span>
-      <br/>
-			<br/>
-			<br/>
-			<br/>
-      注册验证情况：
-			<br/>
-			<textarea cols="30" rows="10" v-model="responseResult"></textarea>
     </div>
 </template>
 
 <script>
-
-  export default {
-  	data() {
-  		return {
-  			loginInfoVo: {
-  				username: '',
-  				password: ''
-  			},
-  			responseResult: [],
-  			showTishi: false,
-  			tishi: '',
-  		}
-  	},
+import {
+		setCookie,
+		getCookie
+	} from '../../assets/js/cookie.js'
+	export default {
+		data() {
+			return {
+				loginInfoVo: {
+					username: '',
+					password: ''
+				},
+				responseResult: [],
+				showTishi: false,
+				tishi: '',
+			}
+		},
+		mounted() {
+			/*页面挂载获取cookie，如果存在username的cookie，则跳转到主页，不需登录*/
+			if (getCookie('username')) {
+				this.$router.push(
+					'/index'
+				)
+			}
+		},
   	methods: {
 		ToMain() {
 			this.$router.push(
@@ -51,14 +55,13 @@
   				.then(successResponse => {
   					this.responseResult = JSON.stringify(successResponse.data)
   					if (successResponse.data.code === 200) {
-  						this.$router.push(
-  							'/index'
-  						)
-  					} else if (successResponse.data.code === 300) {
-  						this.tishi = "该用户不存在"
+  						setCookie('username', this.loginInfoVo.username, 1000 * 60)
+  							this.$router.push('/index')
+  					} else if (successResponse.data.code === 201) {
+  						this.tishi = "该用户已存在"
   						this.showTishi = true
   					} else if (successResponse.data.code === 400) {
-  						this.tishi = "密码输入错误"
+  						this.tishi = "输入不合法"
   						this.showTishi = true
   					}
   				})
