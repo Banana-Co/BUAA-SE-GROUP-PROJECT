@@ -22,7 +22,7 @@ export default new Router({
 		},
     {
       path: '/index',
-      name: 'BlogIndex',
+      name: 'index',
       component: BlogIndex
     },
     {
