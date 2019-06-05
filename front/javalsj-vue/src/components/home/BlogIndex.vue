@@ -1,8 +1,8 @@
 <template>
-  <div>
-      <h3>欢迎 {{name}}</h3>
-      <a href="#" v-on:click="quit">注销登录</a>
-  </div>
+    <div>
+        <h3>欢迎 {{name}}</h3>
+        <a href="#" @click="quit">注销登录</a>
+    </div>
 </template>
 
 <script>
@@ -27,8 +27,8 @@ import { setCookie,getCookie,delCookie } from '../../assets/js/cookie.js'
             quit(){
                 /*删除cookie*/
                 delCookie('username')
-								this.$router.push('/login')
+								this.$router.push('/')
             }
         }
     }
-</style>
+</script>
