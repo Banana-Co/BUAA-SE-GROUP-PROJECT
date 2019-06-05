@@ -6,12 +6,15 @@ import com.b328.blockchain.result.Result;
 import com.b328.blockchain.result.ResultCode;
 import com.b328.blockchain.result.ResultFactory;
 import com.b328.blockchain.service.IUserService;
+import com.b328.blockchain.util.Md5SaltTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.spi.DirStateFactory;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @RestController
@@ -26,10 +29,19 @@ public class UserController {
             return ResultFactory.buildFailResult(message);
         }
         User user=userService.getUser(loginInfoVo.getUsername());
-        if (user==null){
-            return ResultFactory.buildFailResult(ResultCode.NotExist);
-        }else if (!user.getUser_password().equals(loginInfoVo.getPassword())){
-            return ResultFactory.buildFailResult(ResultCode.FAIL);
+
+        try {
+            if (user==null){
+                return ResultFactory.buildFailResult(ResultCode.NotExist);
+            }else if (!Md5SaltTool.validPassword(loginInfoVo.getPassword(),user.getUser_password())){
+                return ResultFactory.buildFailResult(ResultCode.FAIL);
+            }
+        } catch (NoSuchAlgorithmException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
         return ResultFactory.buildSuccessResult("登陆成功。");
     }
@@ -47,8 +59,16 @@ public class UserController {
             return ResultFactory.buildFailResult(ResultCode.FAIL);
         }
         User user1=new User();
-        user1.setUser_name(loginInfoVo.getUsername());
-        user1.setUser_password(loginInfoVo.getPassword());
+        String encryptedPwd = null;
+        try {
+            encryptedPwd = Md5SaltTool.getEncryptedPwd(loginInfoVo.getPassword());
+            user1.setUser_name(loginInfoVo.getUsername());
+            user1.setUser_password(encryptedPwd);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         userService.addUser(user1);
         return ResultFactory.buildSuccessResult("注册成功。");
     }
@@ -85,10 +105,5 @@ public class UserController {
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public int addUser(@RequestBody User user) {
         return userService.addUser(user);
-    }
-
-    @RequestMapping(value = "/deleteUser", method = RequestMethod.POST)
-    public int deleteUser(@RequestBody User user) {
-        return userService.deleteUser(user);
     }
 }

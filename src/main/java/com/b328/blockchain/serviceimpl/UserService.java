@@ -28,21 +28,6 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public int deleteUser(User user) {
-        return userMapper.deleteUser(user);
-    }
-
-    @Override
-    public Result login(User user) {
-        List<User> list=userMapper.login(user);
-        if(!list.isEmpty()){
-            return ResultFactory.buildSuccessResult(list.get(0));
-        }else {
-            return ResultFactory.buildFailResult("登录失败！");
-        }
-    }
-
-    @Override
     public User getUser(String user_name) {
         return userMapper.getUser(user_name);
     }
