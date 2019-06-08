@@ -37,10 +37,8 @@ public class UserController {
                 return ResultFactory.buildFailResult(ResultCode.FAIL);
             }
         } catch (NoSuchAlgorithmException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return ResultFactory.buildSuccessResult("登陆成功。");
@@ -72,6 +70,16 @@ public class UserController {
         userService.addUser(user1);
         return ResultFactory.buildSuccessResult("注册成功。");
     }
+
+    @RequestMapping(value = "/changepswd", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    public Result changePassword(@Valid @RequestBody VueLoginInfoVo loginInfoVo, BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            String message = String.format("注册失败，详细信息[%s]。", bindingResult.getFieldError().getDefaultMessage());
+            return ResultFactory.buildFailResult(message);
+        }
+
+    }
+
     @CrossOrigin
     @RequestMapping(value = "testregister", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
     public Result testregister(@RequestParam(value="username") String username, @RequestParam(value="password") String password) {

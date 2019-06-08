@@ -15,7 +15,7 @@ public interface UserMapper {
     })
     List<User> getAllUsers();
 
-    @Insert("INSERT INTO User(user_name,user_password) VALUES(#{user_name}, #{user_password})")
+    @Insert("INSERT INTO User(user_name,user_password,register_time) VALUES(#{user_name}, #{user_password}, #{register_time})")
     int addUser(User user);
 
     @Select("SELECT * FROM User WHERE user_name = #{user_name}")
