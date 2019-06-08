@@ -18,17 +18,17 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @RestController
-public class UserController {
+public class TestController {
     @Autowired
     private IUserService userService;
     @CrossOrigin
-    @RequestMapping(value = "time", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
-    public String getTime(@RequestBody String username) {
+    @RequestMapping(value = "/time", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    public Result getTime(@RequestBody String username) {
         User user=userService.getUser(username);
         if (user==null){
-            return ResultFactory.buildFailResult(ResultCode.);
-        }else if (loginInfoVo.getUsername().equals("")||loginInfoVo.getPassword().equals("")){
-            return ResultFactory.buildFailResult(ResultCode.FAIL);
+            return ResultFactory.buildFailResult(ResultCode.NotExist);
+        }else {
+            return ResultFactory.buildSuccessResult(user.getRegister_time().toString());
         }
     }
 }

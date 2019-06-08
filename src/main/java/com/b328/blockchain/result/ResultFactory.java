@@ -7,7 +7,9 @@ public class ResultFactory {
     public static Result buildSuccessResult(Object data) {
         return buildResult(ResultCode.SUCCESS, "成功", data);
     }
-
+    public static Result buildSuccessResult(String message) {
+        return buildResult(ResultCode.SUCCESS,  message,null);
+    }
     public static Result buildFailResult(String message) {
         return buildResult(ResultCode.FAIL, message, null);
     }
