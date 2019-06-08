@@ -1,27 +1,80 @@
 <template>
-	<div>
-		<div class="login-wrap" v-show="showLogin">
-			<h3>登录</h3>
-			<p v-show="showTishi">{{tishi}}</p>
-			<input type="text" placeholder="请输入用户名" v-model="username">
-			<input type="password" placeholder="请输入密码" v-model="password">
-			<button v-on:click="login">登录</button>
-			<span v-on:click="ToRegister">没有账号？马上注册</span>
-		</div>
-
-		<div class="register-wrap" v-show="showRegister">
-			<h3>注册</h3>
-			<p v-show="showTishi">{{tishi}}</p>
-			<input type="text" placeholder="请输入用户名" v-model="newUsername">
-			<input type="password" placeholder="请输入密码" v-model="newPassword">
-			<button v-on:click="register">注册</button>
-			<span v-on:click="ToLogin">已有账号？马上登录</span>
-		</div>
+	<div class="wrap">
+		<p v-show="showTishi">{{tishi}}</p>
+		<input type="text" v-model="loginInfoVo.username" placeholder="请输入用户名" />
+		<input type="password" v-model="loginInfoVo.password" placeholder="请输入密码" />
+		<button v-on:click="login">登录</button>
+		<span v-on:click="ToRegister">没有账号？马上注册</span>
+		<br />
+		<span v-on:click="ToMain">查看用户</span>
 	</div>
 </template>
 
+<script>
+	import {
+		setCookie,
+		getCookie
+	} from '../../assets/js/cookie.js'
+	export default {
+		data() {
+			return {
+				loginInfoVo: {
+					username: '',
+					password: ''
+				},
+				responseResult: [],
+				showTishi: false,
+				tishi: '',
+			}
+		},
+		mounted() {
+			/*页面挂载获取cookie，如果存在username的cookie，则跳转到主页，不需登录*/
+			if (getCookie('username')) {
+				this.$router.push(
+					'/index'
+				)
+			}
+		},
+		methods: {
+			ToMain() {
+				this.$router.push(
+					'/main'
+				)
+			},
+			ToRegister() {
+				this.$router.push(
+					'/register'
+				)
+			},
+			login() {
+				this.$axios
+					.post('/login', {
+						username: this.loginInfoVo.username,
+						password: this.loginInfoVo.password
+					})
+					.then(successResponse => {
+						this.responseResult = JSON.stringify(successResponse.data)
+						if (successResponse.data.code === 200) {
+							setCookie('username', this.loginInfoVo.username, 1000 * 60)
+								this.$router.push('/index')
+						} else if (successResponse.data.code === 300) {
+							this.tishi = "该用户不存在"
+							this.showTishi = true
+						} else if (successResponse.data.code === 400) {
+							this.tishi = "密码输入错误"
+							this.showTishi = true
+						}
+					})
+					.catch(failResponse => {})
+
+
+			}
+		}
+	}
+</script>
+
 <style>
-	.login-wrap {
+	.wrap {
 		text-align: center;
 	}
 
@@ -63,75 +116,3 @@
 		color: #41b883;
 	}
 </style>
-
-<script>
-	import {
-		setCookie,
-		getCookie
-	} from '../../assets/js/cookie.js'
-	export default {
-		data(){
-            return{
-                showLogin: true,
-                showRegister: false,
-                showTishi: false,
-                tishi: '',
-                username: '',
-                password: '',
-                newUsername: '',
-                newPassword: ''
-            }
-        },
-		mounted() {
-			/*页面挂载获取cookie，如果存在username的cookie，则跳转到主页，不需登录*/
-			if (getCookie('username')) {
-				this.$router.push('/home')
-			}
-		},
-		methods: {
-			ToRegister() {
-				this.showRegister = true
-				this.showLogin = false
-			},
-			ToLogin() {
-				this.showRegister = false
-				this.showLogin = true
-			},
-			login() {
-				if (this.username == "" || this.password == "") {
-					alert("请输入用户名或密码")
-				} else {
-					let data = {
-						'username': this.username,
-						'password': this.password
-					}
-					/*接口请求*/
-					this.$axios.post('/login', {
-						username: this.username,
-						password: this.password
-					}).then((res) => {
-						console.log(res)
-						/*接口的传值是(-1,该用户不存在),(0,密码错误)，同时还会检测管理员账号的值*/
-						if (res.data == -1) {
-							this.tishi = "该用户不存在"
-							this.showTishi = true
-						} else if (res.data == 0) {
-							this.tishi = "密码输入错误"
-							this.showTishi = true
-						} else if (res.data == 'admin') {
-							/*路由跳转this.$router.push*/
-							this.$router.push('/main')
-						} else {
-							this.tishi = "登录成功"
-							this.showTishi = true
-							setCookie('username', this.username, 1000 * 60)
-							setTimeout(function() {
-								this.$router.push('/home')
-							}.bind(this), 1000)
-						}
-					})
-				}
-			}
-		}
-	}
-</script>
