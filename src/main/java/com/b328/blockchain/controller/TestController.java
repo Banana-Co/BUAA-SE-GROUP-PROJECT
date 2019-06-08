@@ -23,8 +23,8 @@ public class TestController {
     private IUserService userService;
     @CrossOrigin
     @RequestMapping(value = "/time", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
-    public Result getTime(@RequestBody String username) {
-        User user=userService.getUser(username);
+    public Result getTime(@RequestBody VueLoginInfoVo vueLoginInfoVo) {
+        User user=userService.getUser(vueLoginInfoVo.getUsername());
         if (user==null){
             return ResultFactory.buildFailResult(ResultCode.NotExist);
         }else {
