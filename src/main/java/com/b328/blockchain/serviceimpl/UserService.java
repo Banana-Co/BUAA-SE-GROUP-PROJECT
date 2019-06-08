@@ -27,6 +27,9 @@ public class UserService implements IUserService {
         user.setRegister_time(new Timestamp(new Date().getTime()));
         return userMapper.addUser(user);
     }
+    public void changePswd(User user){
+        userMapper.changePswd(user);
+    }
 
     @Override
     public User getUser(String user_name) {

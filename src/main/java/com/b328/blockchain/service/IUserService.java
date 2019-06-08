@@ -7,8 +7,7 @@ import java.util.List;
 
 public interface IUserService {
     List<User> getAllUsers();
-
     int addUser(User user);
-
+    public void changePswd(User user);
     User getUser(String user_name);
 }

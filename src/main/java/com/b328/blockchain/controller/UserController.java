@@ -94,7 +94,7 @@ public class UserController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "testregister", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    @RequestMapping(value = "testregister", method = RequestMethod.POST)
     public Result testregister(@RequestParam(value="username") String username, @RequestParam(value="password") String password) {
         User user=userService.getUser(username);
         if (user!=null){
@@ -107,6 +107,26 @@ public class UserController {
         user1.setUser_password(password);
         userService.addUser(user1);
         return ResultFactory.buildSuccessResult("注册成功。");
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/cp", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    public Result testChangePswd(@RequestParam(value="username") String username, @RequestParam(value="old_password") String old_password, @RequestParam(value="new_password") String new_password) {
+        User user = userService.getUser(username);
+        String encryptedPwd = null;
+        try {
+            if (!Md5SaltTool.validPassword(old_password,user.getUser_password())){
+                return ResultFactory.buildFailResult(ResultCode.FAIL);
+            }
+            encryptedPwd = Md5SaltTool.getEncryptedPwd(new_password);
+            user.setUser_password(encryptedPwd);
+            userService.changePswd(user);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return ResultFactory.buildSuccessResult("修改密码成功。");
     }
     @RequestMapping("/greeting")
     public String hello() {
