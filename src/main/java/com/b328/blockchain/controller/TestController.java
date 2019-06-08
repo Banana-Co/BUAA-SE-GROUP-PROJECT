@@ -2,6 +2,7 @@ package com.b328.blockchain.controller;
 
 import com.b328.blockchain.entity.User;
 import com.b328.blockchain.pojo.vo.VueLoginInfoVo;
+import com.b328.blockchain.pojo.vo.VueUserNameVo;
 import com.b328.blockchain.result.Result;
 import com.b328.blockchain.result.ResultCode;
 import com.b328.blockchain.result.ResultFactory;
@@ -13,9 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.naming.spi.DirStateFactory;
 import javax.validation.Valid;
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 @RestController
 public class TestController {
@@ -23,12 +21,12 @@ public class TestController {
     private IUserService userService;
     @CrossOrigin
     @RequestMapping(value = "/time", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
-    public Result getTime(@RequestBody VueLoginInfoVo vueLoginInfoVo) {
-        User user=userService.getUser(vueLoginInfoVo.getUsername());
-        if (user==null){
-            return ResultFactory.buildFailResult(ResultCode.NotExist);
-        }else {
-            return ResultFactory.buildSuccessResult(user.getRegister_time().toString());
-        }
+    public String getTime(@Valid @RequestBody VueUserNameVo vueLoginInfoVo) {
+        System.out.println(vueLoginInfoVo.getUsername());
+        return userService.getUser(vueLoginInfoVo.getUsername()).getRegister_time().toString();
+    }
+    @RequestMapping(value = "/testtime", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    public String getTestTime(@RequestParam(value="username") String username) {
+        return userService.getUser(username).getRegister_time().toString();
     }
 }
