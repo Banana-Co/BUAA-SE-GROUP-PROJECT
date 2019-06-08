@@ -3,7 +3,6 @@ package com.b328.blockchain.entity;
 public class User {
     private Integer user_id;
     private String user_name;
-    private String user_sex;
     private String user_password;
 
     public Integer getUser_id() {
@@ -20,14 +19,6 @@ public class User {
 
     public void setUser_name(String user_name) {
         this.user_name = user_name;
-    }
-
-    public String getUser_sex() {
-        return user_sex;
-    }
-
-    public void setUser_sex(String user_sex) {
-        this.user_sex = user_sex;
     }
 
     public String getUser_password() {
