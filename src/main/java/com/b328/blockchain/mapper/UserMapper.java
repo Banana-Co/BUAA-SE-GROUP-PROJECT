@@ -10,7 +10,6 @@ public interface UserMapper {
     @Results({
             @Result(property = "user_id", column = "user_id"),
             @Result(property = "user_name", column = "user_name"),
-            @Result(property = "user_sex", column = "user_sex"),
             @Result(property = "user_password", column = "user_password")
     })
     List<User> getAllUsers();
