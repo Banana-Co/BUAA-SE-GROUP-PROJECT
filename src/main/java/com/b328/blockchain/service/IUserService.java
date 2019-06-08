@@ -2,6 +2,7 @@ package com.b328.blockchain.service;
 
 import com.b328.blockchain.entity.User;
 import com.b328.blockchain.result.Result;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 

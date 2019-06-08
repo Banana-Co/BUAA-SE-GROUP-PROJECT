@@ -22,4 +22,8 @@ public interface UserMapper {
 
     @Update("UPDATE User SET user_password = #{user_password} where user_name = #{user_name}")
     int changePswd(User user);
+
+    @Select("SELECT * FROM User WHERE user_id = #{user_id}")
+    User selectUserById(long user_id);
+
 }
