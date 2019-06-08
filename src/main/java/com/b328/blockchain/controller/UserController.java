@@ -71,6 +71,9 @@ public class UserController {
         return ResultFactory.buildSuccessResult("注册成功。");
     }
 
+
+
+    @CrossOrigin
     @RequestMapping(value = "/changepswd", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
     public Result changePassword(@Valid @RequestBody VueLoginInfoVo loginInfoVo, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {

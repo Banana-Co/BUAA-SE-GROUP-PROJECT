@@ -5,6 +5,7 @@ import login from '@/components/manage/login.vue'
 import index from '@/components/home/index.vue'
 import register from '@/components/manage/register.vue'
 import main from '@/components/main/Main.vue'
+import detail from '@/components/home/detail.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -37,6 +38,11 @@ export default new Router({
       path: '/main',
       name: 'main',
       component: main
+    },
+    {
+      path: '/detail',
+      name: 'detail',
+      component: detail
     }
   ]
 })
