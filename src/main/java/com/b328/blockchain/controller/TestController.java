@@ -22,7 +22,6 @@ public class TestController {
     @CrossOrigin
     @RequestMapping(value = "/time", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
     public String getTime(@Valid @RequestBody VueUserNameVo vueLoginInfoVo) {
-        System.out.println(vueLoginInfoVo.getUsername());
         return userService.getUser(vueLoginInfoVo.getUsername()).getRegister_time().toString();
     }
     @RequestMapping(value = "/testtime", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
