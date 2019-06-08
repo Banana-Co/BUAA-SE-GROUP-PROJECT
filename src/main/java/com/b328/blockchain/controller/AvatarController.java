@@ -22,7 +22,7 @@ public class AvatarController {
         if (!file.isEmpty()) {
             try {
                 //图片命名
-                String newCompanyImageName = avatarVo.getUsername();
+                String newCompanyImageName = avatarVo.getUsername()+".png";
                 String newCompanyImagepath = "D:\\"+newCompanyImageName;
                 File newFile = new File(newCompanyImagepath);
                 if (!newFile.exists()) {
@@ -44,7 +44,7 @@ public class AvatarController {
         return "图片上传失败！";
     }
 
-    
+
 
 
 }
