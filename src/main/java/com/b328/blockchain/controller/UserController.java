@@ -1,6 +1,7 @@
 package com.b328.blockchain.controller;
 
 import com.b328.blockchain.entity.User;
+import com.b328.blockchain.pojo.vo.VueChangPswdVo;
 import com.b328.blockchain.pojo.vo.VueLoginInfoVo;
 import com.b328.blockchain.result.Result;
 import com.b328.blockchain.result.ResultCode;
@@ -72,12 +73,21 @@ public class UserController {
     }
 
     @RequestMapping(value = "/changepswd", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
-    public Result changePassword(@Valid @RequestBody VueLoginInfoVo loginInfoVo, BindingResult bindingResult){
-        if (bindingResult.hasErrors()) {
-            String message = String.format("注册失败，详细信息[%s]。", bindingResult.getFieldError().getDefaultMessage());
-            return ResultFactory.buildFailResult(message);
+    public Result changePassword(@Valid @RequestBody VueChangPswdVo changPswdVo){
+        User user = userService.getUser(changPswdVo.getUsername());
+        String encryptedPwd = null;
+        try {
+            if (!Md5SaltTool.validPassword(changPswdVo.getOld_password(),user.getUser_password())){
+                return ResultFactory.buildFailResult(ResultCode.FAIL);
+            }
+            encryptedPwd = Md5SaltTool.getEncryptedPwd(changPswdVo.getNew_password());
+            user.setUser_password(encryptedPwd);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
-
+        return ResultFactory.buildSuccessResult("修改密码成功。");
     }
 
     @CrossOrigin
